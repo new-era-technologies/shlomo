@@ -1,0 +1,28 @@
+.header {
+    &__wrapper {
+        width: 100%;
+        padding: 16px;
+        background-color: #FFFFFF;
+        box-sizing: border-box;
+    }
+    &__inner {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    &__text {
+        width: 115px;
+        @include font(Arimo, normal, 700, 12px, 14px, #009C41);
+        text-align: right;
+    }
+    &__img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #009C41;
+        border-radius: 10px;
+    }
+}

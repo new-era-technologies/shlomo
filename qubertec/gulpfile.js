@@ -11,9 +11,15 @@ const { src, dest, watch, series, parallel } = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     babel = require('gulp-babel'),
-    jsValidate = require('gulp-jsvalidate');
+    jsValidate = require('gulp-jsvalidate'),
+    merge = require('merge-stream');
 
 sass.compiler = require('node-sass');
+
+const CONFIGS = [
+    require('./gulp.main-page.config'),
+    require('./gulp.login.config')
+];
 
 
 function clean() {
@@ -26,10 +32,15 @@ function clearCache() {
 }
 
 function html() {
-    return src('app/src/*.html')
-        .pipe(rigger())
-        .pipe(dest('app/build'))
-        .pipe(browserSync.stream());
+    let tasks = CONFIGS.map(
+        config => {
+            return src(config.html.src)
+                .pipe(rigger())
+                .pipe(dest(config.buildLocations.html))
+                .pipe(browserSync.stream());
+        }
+    )
+    return merge(tasks);
 }
 
 function fonts() {
@@ -38,28 +49,38 @@ function fonts() {
 }
 
 function css() {
-    return src('app/src/scss/style.scss')
-        .pipe(autoprefixer({
-            cascade: false
-        }))
-        .pipe(sass().on('error', sass.logError))
-        .pipe(purge())
-        .pipe(concat('main.css'))
-        .pipe(minifyCss())
-        .pipe(dest('app/build/css'))
-        .pipe(browserSync.stream());
+    let tasks = CONFIGS.map(
+        config => {
+            return src(config.sass.src)
+                .pipe(autoprefixer({
+                    cascade: false
+                }))
+                .pipe(sass().on('error', sass.logError))
+                .pipe(purge())
+                .pipe(concat('main.css'))
+                .pipe(minifyCss())
+                .pipe(dest(config.buildLocations.css))
+                .pipe(browserSync.stream());
+        }
+    )
+    return merge(tasks);
 }
 
 function javascript() {
-    return src('app/src/js/**/*.js')
-        .pipe(jsValidate())
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
-        .pipe(concat('main.js'))
-        .pipe(uglify())
-        .pipe(dest('app/build/js'))
-        .pipe(browserSync.stream());
+    let tasks = CONFIGS.map(
+        config => {
+            return src(config.js.src)
+                .pipe(jsValidate())
+                .pipe(babel({
+                    presets: ['@babel/env']
+                }))
+                .pipe(concat('main.js'))
+                .pipe(uglify())
+                .pipe(dest(config.buildLocations.js))
+                .pipe(browserSync.stream());
+        }
+    )
+    return merge(tasks);
 }
 
 function images() {
@@ -80,11 +101,15 @@ exports.default = function() {
     browserSync.init({
         server: { baseDir: "app/build" }
     });
-    watch(['app/src/html/*.html', 'app/src/scss/**/*.scss', 'app/src/js/**/*.js'], series(
-            clean,
-            // clearCache,
-            images,
-            fonts,
-            parallel(html, css, javascript)))
-        .on('change', browserSync.reload);
+    let watchArr = [];
+    CONFIGS.forEach(config => {
+        let srcItms = [config.html.tmp, config.sass.tmp, config.js.src];
+        watchArr.push(...srcItms);
+    });
+    watch(watchArr, series(
+        clean,
+        // clearCache,
+        images,
+        fonts,
+        parallel(html, css, javascript))).on('change', browserSync.reload);
 };

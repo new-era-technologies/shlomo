@@ -6,7 +6,7 @@
     &__wrapper {
         width: 100%;
         padding-top: 25px;
-        background: url(../assets/img/main/main-bg.png);
+        background: url(../../assets/img/main/main-bg.png);
         background-size: cover;
         box-sizing: border-box;
     }
@@ -372,7 +372,7 @@
         &__ok {
             width: 24px;
             height: 20px;
-            background-image: url(../assets/img/icons/ok.png);
+            background-image: url(../../assets/img/icons/ok.png);
         }
     }
 }

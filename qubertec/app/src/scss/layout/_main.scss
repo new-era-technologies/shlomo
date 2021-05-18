@@ -143,13 +143,13 @@
 }
 
 .info {
-    margin: 15px 20px;
+    margin: 15px 18px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(5, 44px);
     grid-gap: 15px;
     &__text {
-        @include font(Arimo, normal, 400, 18px, 21px, #797979);
+        @include font(Arimo, normal, 700, 20px, 23px, #21325E);
         &--text1 {
             display: none;
         }
@@ -175,10 +175,10 @@
         }
     }
     &__text>b {
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 23px;
-        color: #21325E;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: #797979;
     }
 }
 
@@ -258,6 +258,14 @@
         &__list {
             margin-top: 35px;
         }
+        &__item:first-child {
+            background: none;
+        }
+        &__item:first-child .info__text {
+            border-right: none;
+            line-height: 16px;
+            color: #F5F5F5;
+        }
     }
     .tile {
         width: 1076px;
@@ -286,6 +294,10 @@
             border-right: 1px solid #E5E5E5;
             text-align: center;
             box-sizing: border-box;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #21325E;
             &--text6 {
                 order: 2;
             }
@@ -299,10 +311,12 @@
                 order: 3;
             }
         }
+        &__text:first-child {
+            border-right: none;
+        }
+        &__text>br,
         &__text>b {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 16px;
+            display: none;
         }
     }
 }

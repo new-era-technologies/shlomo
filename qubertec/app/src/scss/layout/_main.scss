@@ -166,7 +166,6 @@
         }
         &--text8 {
             margin-top: auto;
-            color: #009C41;
         }
         &--text5,
         &--text7,
@@ -179,6 +178,9 @@
         font-size: 18px;
         line-height: 21px;
         color: #797979;
+    }
+    &__text--text8>b {
+        color: #009C41;
     }
 }
 
@@ -281,12 +283,16 @@
             padding: 0;
             position: absolute;
             top: 2px;
-            left: 1088px;
+            left: 976px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .1s ease-in;
         }
         &__link {
             width: 45px;
             height: auto;
-            margin-right: 12px;
+            margin-right: 0;
+            padding-left: 12px;
             background: none;
             border-radius: 0;
             display: block;
@@ -367,4 +373,14 @@
             background-image: url(../assets/img/icons/ok.png);
         }
     }
+}
+
+.show-tile-nav {
+    opacity: 1;
+    visibility: visible;
+    left: 1076px;
+}
+
+.ok-white {
+    background-position-y: 20px;
 }

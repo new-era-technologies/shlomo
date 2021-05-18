@@ -256,7 +256,7 @@
         margin-bottom: 0;
         margin-left: 0;
         &__list {
-            margin-top: 35px;
+            margin: 35px 0;
         }
         &__item:first-child {
             background: none;
@@ -266,13 +266,35 @@
             line-height: 16px;
             color: #F5F5F5;
         }
+        &__item:not(:first-child):hover {
+            background: #FF7728;
+        }
     }
     .tile {
         width: 1076px;
         height: 45px;
         margin-bottom: 10px;
         border-radius: 35px;
+        position: relative;
         &__nav {
+            width: auto;
+            padding: 0;
+            position: absolute;
+            top: 2px;
+            left: 1088px;
+        }
+        &__link {
+            width: 45px;
+            height: auto;
+            margin-right: 12px;
+            background: none;
+            border-radius: 0;
+            display: block;
+            @include font(Arimo, normal, 400, 14px, 16px, #ffffff);
+            text-align: center;
+            text-decoration: none;
+        }
+        &__img {
             display: none;
         }
         &__line {
@@ -283,31 +305,52 @@
         margin: 0;
         display: flex;
         flex-direction: row-reverse;
-        justify-content: space-around;
         grid-gap: 0;
         &__text {
             height: 31px;
             margin: 7px 0;
             padding: 0 14px;
             display: flex;
+            justify-content: center;
             align-items: center;
             border-right: 1px solid #E5E5E5;
-            text-align: center;
             box-sizing: border-box;
             font-weight: 400;
             font-size: 14px;
             line-height: 20px;
             color: #21325E;
+            &--text1 {
+                width: 63px;
+            }
+            &--text2 {
+                width: 151px;
+            }
+            &--text3 {
+                width: 168px;
+            }
+            &--text4 {
+                width: 98px;
+            }
+            &--text5 {
+                width: 105px;
+            }
             &--text6 {
+                width: 130px;
                 order: 2;
             }
             &--text7 {
+                width: 120px;
                 order: 1;
             }
             &--text8 {
+                width: 119px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 order: 4;
             }
             &--text9 {
+                width: 122px;
                 order: 3;
             }
         }
@@ -317,6 +360,11 @@
         &__text>br,
         &__text>b {
             display: none;
+        }
+        &__ok {
+            width: 24px;
+            height: 20px;
+            background-image: url(../assets/img/icons/ok.png);
         }
     }
 }
